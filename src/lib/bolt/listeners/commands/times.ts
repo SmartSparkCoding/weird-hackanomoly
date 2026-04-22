@@ -1,4 +1,7 @@
-import { SlackCommandMiddlewareArgs } from "@slack/bolt";
+import type {
+  AllMiddlewareArgs,
+  SlackCommandMiddlewareArgs,
+} from "@slack/bolt";
 
 export default async function timesCommand({ ack, respond, command }: SlackCommandMiddlewareArgs) {
   await ack();
@@ -23,7 +26,7 @@ export default async function timesCommand({ ack, respond, command }: SlackComma
 • *Techno* – ${techno} (CDT, GMT-5)
 `;
 
-  await respond({
+  await client.chat.postMessage({
     text: message,
     thread_ts: command.thread_ts || command.ts, // reply in thread if triggered in one
   });
