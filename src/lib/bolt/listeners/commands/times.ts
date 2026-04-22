@@ -3,7 +3,9 @@ import type {
   SlackCommandMiddlewareArgs,
 } from "@slack/bolt";
 
-export default async function timesCommand({ ack, respond, command }: SlackCommandMiddlewareArgs) {
+export default async function timesCommand(
+  { ack, client, command }: AllMiddlewareArgs & SlackCommandMiddlewareArgs
+) {
   await ack();
 
   // Helper to format time in a given timezone
@@ -27,7 +29,8 @@ export default async function timesCommand({ ack, respond, command }: SlackComma
 `;
 
   await client.chat.postMessage({
+    channel: command.channel_id,
     text: message,
-    thread_ts: command.thread_ts || command.ts, // reply in thread if triggered in one
+    thread_ts: command.thread_ts || command.ts,
   });
 }
