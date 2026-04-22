@@ -1,8 +1,8 @@
 import type { App } from "@slack/bolt";
-import sampleCommandCallback from "./sample-command";
+import timesCommand from "./times";
 
 const register = (app: App) => {
-  app.command("/sample-command", sampleCommandCallback);
+  app.command("/hackanomous-times", timesCommand);
 };
 
 export default { register };
