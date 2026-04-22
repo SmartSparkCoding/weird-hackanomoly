@@ -8,7 +8,6 @@ export default async function timesCommand(
 ) {
   await ack();
 
-  // Helper to format time in a given timezone
   const fmt = (tz: string) =>
     new Intl.DateTimeFormat("en-GB", {
       hour: "2-digit",
@@ -29,7 +28,7 @@ export default async function timesCommand(
 `;
 
   await client.chat.postMessage({
-    channel: command.channel_id,
+    channel: "C0AHPA379SR",          // ← forced channel
     text: message,
     thread_ts: command.thread_ts || command.ts,
   });
