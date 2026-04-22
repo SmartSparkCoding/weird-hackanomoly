@@ -1,6 +1,10 @@
-import { SlackCommandMiddlewareArgs } from "@slack/bolt";
+import type { Middleware, SlackCommandMiddlewareArgs } from "@slack/bolt";
 
-export default async function timesCommand({ ack, client, command }: SlackCommandMiddlewareArgs) {
+const timesCommand: Middleware<SlackCommandMiddlewareArgs> = async ({
+  ack,
+  client,
+  command,
+}) => {
   await ack();
 
   // Helper to format time in a given timezone
@@ -28,4 +32,6 @@ export default async function timesCommand({ ack, client, command }: SlackComman
     text: message,
     thread_ts: command.thread_ts || command.ts, // stays in thread if triggered in one
   });
-}
+};
+
+export default timesCommand;
