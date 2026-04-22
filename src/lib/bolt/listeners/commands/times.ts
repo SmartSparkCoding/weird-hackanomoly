@@ -1,13 +1,9 @@
-import type {
-  AllMiddlewareArgs,
-  SlackCommandMiddlewareArgs,
-} from "@slack/bolt";
+import { SlackCommandMiddlewareArgs } from "@slack/bolt";
 
-export default async function timesCommand(
-  { ack, client, command }: AllMiddlewareArgs & SlackCommandMiddlewareArgs
-) {
+export default async function timesCommand({ ack, respond, command }: SlackCommandMiddlewareArgs) {
   await ack();
 
+  // Helper to format time in a given timezone
   const fmt = (tz: string) =>
     new Intl.DateTimeFormat("en-GB", {
       hour: "2-digit",
@@ -27,9 +23,8 @@ export default async function timesCommand(
 • *Techno* – ${techno} (CDT, GMT-5)
 `;
 
-  await client.chat.postMessage({
-    channel: "C0AHPA379SR",          // ← forced channel
+  await respond({
     text: message,
-    thread_ts: command.thread_ts || command.ts,
+    thread_ts: command.thread_ts || command.ts, // reply in thread if triggered in one
   });
 }
