@@ -2,7 +2,7 @@ import type { App } from "@slack/bolt";
 import timesCommand from "./times";
 
 const register = (app: App) => {
-  app.command("/hackanomous-times", timesCommand);
+  app.command(/^\/(hackanomous-times|sample-command)$/, timesCommand);
 };
 
 export default { register };

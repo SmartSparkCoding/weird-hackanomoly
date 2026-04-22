@@ -2,8 +2,7 @@ import type { Middleware, SlackCommandMiddlewareArgs } from "@slack/bolt";
 
 const timesCommand: Middleware<SlackCommandMiddlewareArgs> = async ({
   ack,
-  client,
-  command,
+  respond,
 }) => {
   await ack();
 
@@ -27,10 +26,9 @@ const timesCommand: Middleware<SlackCommandMiddlewareArgs> = async ({
 • *Techno* – ${techno} (CDT, GMT-5)
 `;
 
-  await client.chat.postMessage({
-    channel: command.channel_id,
+  await respond({
+    response_type: "in_channel",
     text: message,
-    thread_ts: command.thread_ts || command.ts, // stays in thread if triggered in one
   });
 };
 
