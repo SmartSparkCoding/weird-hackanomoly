@@ -1,7 +1,8 @@
 import type { App } from "@slack/bolt";
+import userJoinedChannel from "./user-joined-channel";
 
 const register = (_app: App) => {
-  // Intentionally empty until event listeners are added.
+  app.event("joined", userJoinedChannel);
 };
 
 export default { register };
